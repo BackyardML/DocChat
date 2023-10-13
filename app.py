@@ -10,27 +10,27 @@ LOGGER.setLevel(logging.INFO)
 
 # Create a Gradio application with a title
 with gr.Blocks(title="DocChat") as demo:
-    # Define a function to create a chatbot and initialize it
+    gr.Markdown(
+        """
+        # Welcome to DocChat - Chat with Documents!
+        Set your OpenAI API key, upload document(s) and start asking questions.
+        """
+    )
+
     def make_chatbot(input_files):
         global chat_engine
-
-        chat_engine = ChatEngine(input_files)  # Initialize the chat engine
+        chat_engine = ChatEngine(input_files)
         return {chat_column: gr.Column(visible=True)}
 
     # Define a function to set the OpenAI API key
     def set_api_key(openai_api_key):
-        """Set the OpenAI API key using the provided value.
-
-        Args:
-            openai_api_key (str): The OpenAI API key.
-        """
         os.environ["OPENAI_API_KEY"] = openai_api_key
 
     api_key = gr.Textbox(label="OpenAI API Key", placeholder="sk-...")
     api_key.change(set_api_key, [api_key])
 
     # Create a file uploader
-    files = gr.Files()
+    files = gr.Files(label="PDF(s)")
     run_btn = gr.Button()
 
     # Create a chatbot component
@@ -41,15 +41,6 @@ with gr.Blocks(title="DocChat") as demo:
 
         # Define a function to respond to user messages
         def respond(user_message, chat_history):
-            """Respond to a user's message and update the chat history.
-
-            Args:
-                user_message (str): The user's message.
-                chat_history (List[Tuple[str, str]]): List of user messages and responses.
-
-            Returns:
-                Tuple[str, List[Tuple[str, str]]]: A tuple with an empty string and the updated chat history.
-            """
             response = chat_engine.run(user_message, [tuple(x) for x in chat_history])
             chat_history.append((user_message, response))
             return "", chat_history

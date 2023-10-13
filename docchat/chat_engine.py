@@ -52,5 +52,4 @@ class ChatEngine:
 
     def run(self, query, chat_history):
         result = self.qa({"question": query, "chat_history": chat_history})
-        print(result)
         return result["answer"]
