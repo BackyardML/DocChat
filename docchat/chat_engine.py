@@ -1,4 +1,4 @@
-from logging import getLogger
+import logging
 from pathlib import Path
 
 from langchain.chains import ConversationalRetrievalChain
@@ -8,7 +8,8 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-LOGGER = getLogger()
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.INFO)
 
 
 class ChatEngine:
@@ -18,13 +19,9 @@ class ChatEngine:
 
         documents = self.load_documents(docs)
 
-        text_splitter = CharacterTextSplitter(
-            chunk_size=1000, chunk_overlap=40
-        )  # chunk overlap seems to work better
+        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=40)
         documents = text_splitter.split_documents(documents)
-
         vectorstore = Chroma.from_documents(documents, embeddings)
-
         retriever = vectorstore.as_retriever(
             search_type="similarity", search_kwargs={"k": 2}
         )
@@ -48,8 +45,8 @@ class ChatEngine:
         num_docs = len(documents)
         num_chars = sum([len(document.page_content) for document in documents])
 
-        print(f"You have {num_docs} document(s) in your document(s)")
-        print(f"There are {num_chars} characters in your document(s)")
+        LOGGER.debug(f"You have {num_docs} document(s) in your document(s)")
+        LOGGER.debug(f"There are {num_chars} characters in your document(s)")
 
         return documents
 

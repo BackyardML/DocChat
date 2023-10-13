@@ -1,8 +1,12 @@
+import logging
 import os
 
 import gradio as gr
 
 from docchat.chat_engine import ChatEngine
+
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.INFO)
 
 # Create a Gradio application with a title
 with gr.Blocks(title="DocChat") as demo:
