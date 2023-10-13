@@ -11,20 +11,20 @@ LOGGER.setLevel(logging.INFO)
 # Create a Gradio application with a title
 with gr.Blocks(title="DocChat") as demo:
     # Define a function to create a chatbot and initialize it
-    def make_chatbot(filesson):
+    def make_chatbot(input_files):
         global chat_engine
 
-        chat_engine = ChatEngine(filesson)  # Initialize the chat engine
+        chat_engine = ChatEngine(input_files)  # Initialize the chat engine
         return {chat_column: gr.Column(visible=True)}
 
     # Define a function to set the OpenAI API key
-    def set_api_key(api_key):
+    def set_api_key(openai_api_key):
         """Set the OpenAI API key using the provided value.
 
         Args:
-            api_key (str): The OpenAI API key.
+            openai_api_key (str): The OpenAI API key.
         """
-        os.environ["OPENAI_API_KEY"] = api_key
+        os.environ["OPENAI_API_KEY"] = openai_api_key
 
     api_key = gr.Textbox(label="OpenAI API Key", placeholder="sk-...")
     api_key.change(set_api_key, [api_key])
