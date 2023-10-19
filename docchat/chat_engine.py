@@ -17,7 +17,7 @@ class ChatEngine:
         chatbot = ChatOpenAI(temperature=0)
         embeddings = OpenAIEmbeddings()
 
-        documents = self.load_documents(docs)
+        documents = self.load_documents(docs if len(docs) > 1 else [docs])
 
         text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=40)
         documents = text_splitter.split_documents(documents)
