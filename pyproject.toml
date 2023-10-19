@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "docchat"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Patrik Larsson <patrik@backyardml.se>"]
 readme = "README.md"
