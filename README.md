@@ -1,4 +1,8 @@
-# DocChat - Chat with Documents
+<p align="center">
+    <br>
+    <img src="https://raw.githubusercontent.com/BackyardML/DocChat/c62436cd62f6da0568b50ca36d312c21d57e49cb/resources/bml_docchat.svg" width="600"/>
+    <br>
+<p>
 
 DocChat is a Python application that allows users to interact with documents using natural language. It leverages LangChain, Gradio, and the OpenAI API to create a chat interface for document-based conversations.
 
