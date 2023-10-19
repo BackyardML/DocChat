@@ -16,7 +16,7 @@ To get started with DocChat, follow these steps:
    ```
 2. Change the directory to the project folder:
    ```commandline
-   cd docchat
+   cd DocChat
    ```
 3. Install Poetry (if you haven't already):
    ```commandline
